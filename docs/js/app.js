@@ -339,7 +339,7 @@ function enterWrite() {
     i = (i + 1) % WRITE_IDEAS.length;
     input.placeholder = WRITE_IDEAS[i];
   }, 3000);
-  startTimer($('write-timer'), 45, () => submitWrite(true));
+  startTimer($('write-timer'), 60, () => submitWrite(true));
 }
 
 async function submitWrite(auto = false) {
@@ -421,7 +421,7 @@ function enterSculpt(task) {
   bar.querySelectorAll('.swatch').forEach((el, i) => el.classList.toggle('selected', i === 0));
   $('btn-sculpt-submit').disabled = false;
   $('btn-sculpt-submit').textContent = 'Done';
-  startTimer($('sculpt-timer'), 120, () => submitSculpture(true));
+  startTimer($('sculpt-timer'), 150, () => submitSculpture(true));
 }
 
 async function submitSculpture(auto = false) {
@@ -471,7 +471,7 @@ function enterGuess(task) {
   const v = ensureGuessViewer();
   v.load({ voxels: [] });
   v.loadUrl(task.sculptureUrl).catch((e) => toast(e.message));
-  startTimer($('guess-timer'), 45, () => submitGuess(true));
+  startTimer($('guess-timer'), 60, () => submitGuess(true));
 }
 
 async function submitGuess(auto = false) {

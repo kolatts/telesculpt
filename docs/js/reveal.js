@@ -178,8 +178,33 @@ export class RevealFlow {
     if (this.viewer) this.viewer.stop();
     this.els.nextBtn.classList.add('hidden');
     this.els.progress.textContent = 'That’s the whole story!';
+    this._renderSummary();
     this.els.finalPanel.classList.remove('hidden');
     confettiBurst(this.els.confettiCanvas, 160);
+  }
+
+  // The punchline: each chain's opening phrase next to where it ended up.
+  _renderSummary() {
+    const host = this.els.finalPanel.querySelector('#final-summary');
+    if (!host) return;
+    host.replaceChildren();
+    for (const chain of this.chains) {
+      const first = chain.steps[0];
+      const lastText = [...chain.steps].reverse().find((s) => s.type === 'text' && s !== first);
+      const row = document.createElement('div');
+      row.className = 'summary-row';
+      const from = document.createElement('span');
+      from.className = 'summary-from';
+      from.textContent = `“${first?.text || '…'}”`;
+      const arrow = document.createElement('span');
+      arrow.className = 'summary-arrow';
+      arrow.textContent = '→';
+      const to = document.createElement('span');
+      to.className = 'summary-to';
+      to.textContent = lastText ? `“${lastText.text || '…'}”` : '🗿';
+      row.append(from, arrow, to);
+      host.appendChild(row);
+    }
   }
 
   dispose() {
