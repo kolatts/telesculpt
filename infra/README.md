@@ -43,7 +43,7 @@ Set under **Settings → Secrets and variables → Actions → Variables**:
 | Variable | Example | Used by |
 |---|---|---|
 | `RESOURCE_SUFFIX` | `sunny42` | `spin-up.yml` — default suffix when the dispatch input is left blank. Lowercase letters/digits only, ≤14 chars (storage account name limits). |
-| `API_BASE_URL` | `https://func-telesculpt-sunny42.azurewebsites.net/api` | `pages.yml` — injected into `docs/js/config.js` (replaces `PLACEHOLDER_PROD_API`) at deploy time. |
+| `API_BASE_URL` | `https://func-telesculpt-sunny42.azurewebsites.net` | `pages.yml` — injected into `docs/js/config.js` (replaces `PLACEHOLDER_PROD_API`; the frontend appends `/api` itself, so do NOT include the path). |
 
 ## Workflows
 
@@ -54,7 +54,7 @@ Set under **Settings → Secrets and variables → Actions → Variables**:
 `/api` to the Function app via `Azure/functions-action@v1` (remote Oryx build
 installs dependencies — `provision.ps1` sets
 `SCM_DO_BUILD_DURING_DEPLOYMENT=true`). The final step prints the Function app
-URL — copy it (plus `/api`) into the `API_BASE_URL` variable, then re-run the
+URL — copy it (host only, no `/api`) into the `API_BASE_URL` variable, then re-run the
 Pages deploy if needed.
 
 ### Spin down (`spin-down.yml`)
